@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+         'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'MBLDB',        # Database name
+        'USER': 'MBLFIN',        # Database username
+        'PASSWORD': 'mblfin',    # Database password
+        'HOST': '10.11.5.10',            # Database host (e.g., 'localhost' or an IP address)
+        'PORT': '1521',                  # Default Oracle port
     }
 }
 

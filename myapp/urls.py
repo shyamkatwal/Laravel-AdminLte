@@ -3,7 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('', dashboard, name='dashboard'),
-    path('showdata/', showdata, name='showdata'),
+    path('showdata/', custom_query, name='showdata'),
 ]
 
 
