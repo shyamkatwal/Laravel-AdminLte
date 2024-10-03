@@ -80,12 +80,18 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
          'ENGINE': 'django.db.backends.oracle',
         'NAME': 'MBLDB',        # Database name
         'USER': 'MBLFIN',        # Database username
         'PASSWORD': 'mblfin',    # Database password
         'HOST': '10.11.5.10',            # Database host (e.g., 'localhost' or an IP address)
         'PORT': '1521',                  # Default Oracle port
+=======
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase', # This is where you put the name of the db file. 
+                 # If one doesn't exist, it will be created at migration time.
+>>>>>>> 19697c1 (adminlte3)
     }
 }
 
