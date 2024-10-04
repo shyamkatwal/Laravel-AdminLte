@@ -7,18 +7,19 @@ from django.db import connection
 def dashboard(request):
     return render(request, 'myapp/dashboard.html')
 
-def showdata(request):
-    records = MyModel.objects.all()
-    print(records.query)
+#def showdata(request):
+    #records = MyModel.objects.all()
+    #print(records.query)
     #return render(request, 'myapp/showdata.html', {'records': records})
+    return render(request, 'myapp/showdata.html')
 
 def custom_query(request):
     try:
-        query = "SELECT * FROM finfadm.urm_upr_coreserver"
+       
         with connection.cursor() as cursor:
-            queryset = cursor.execute(query)
-            data = queryset.fetchall()
-            return render(request, 'myapp/showdata.html', context={"records": data})
-
+             query = "SELECT * FROM tbl_addressbook"
+             cursor.execute(query)
+             data = cursor.fetchall()
+             return render(request, 'myapp/showdata.html', context={"records": data})
     except Exception as e:
-        print(e)
+         print(e)

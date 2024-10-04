@@ -1,62 +1,77 @@
 {% extends 'myapp/base.html' %}
 
-{% block title %}Show Data{% endblock %}
-
+{% block title %}AdminLTE - ShowData{% endblock %}
+{% load static %}
 {% block content %}
 
-<<<<<<< HEAD
-<section class="content-header">
-=======
-<div class="content-header">
->>>>>>> 19697c1 (adminlte3)
-    <h1>
-        Show Data
 
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Show Data</li>
-    </ol>
-</section>
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Hover Data Table</h3>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <table id="example2" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>SN</th>
-                                <th>User Id</th>
-                                <th>Del Flag</th>
-                                <th>Work Class</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for record in records %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ record.0 }}</td>
-                                <td>{{ record.1 }}</td>
-                                <td>{{ record.2 }}</td>
-                         
-                
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        
-                    </table>
-                </div>
-                <!-- /.box-body -->
+<!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>DataTables</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">DataTables</li>
+                </ol>
             </div>
         </div>
-    </div>
-
+    </div><!-- /.container-fluid -->
 </section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Datatable with default features</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Branch</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in records %}
+                                <tr>
+                                    <td>{{ item.0 }}</td>
+                                    <td>{{ item.1 }}</td>
+                                    <td>{{ item.2 }}</td>
+                                    <td>{{ item.3 }}</td>
+                                    <td>{{ item.4 }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<script>
+    $(document).ready(function () {
+       $("#example1").DataTable()
+
+    });
+</script>
 
 {% endblock %}
