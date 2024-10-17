@@ -22,4 +22,5 @@ def custom_query(request):
              data = cursor.fetchall()
              return render(request, 'myapp/showdata.html', context={"records": data})
     except Exception as e:
-         print(e)
+        print(e)
+        return render(request, 'myapp/error.html', context={"error": str(e)})
