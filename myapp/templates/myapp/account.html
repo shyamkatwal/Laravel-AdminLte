@@ -5,29 +5,30 @@
 {% block content %}
 <style>
     /* Lightbox styles */
-    #lightbox {
+    #customLoader {
         position: fixed;
+        /* Fix position to cover whole screen */
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent black background */
+        z-index: 9999;
+        /* Ensure it's on top of all content */
         justify-content: center;
         align-items: center;
-        z-index: 1000;
+        display: flex;
     }
 
     /* Loader styles */
-    .loader {
+    .spinner {
         border: 8px solid #f3f3f3;
-        /* Light grey */
         border-top: 8px solid #3498db;
-        /* Blue */
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: spin 1s linear infinite;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
     }
 
     @keyframes spin {
@@ -39,7 +40,6 @@
             transform: rotate(360deg);
         }
     }
-
     /* Lightbox content */
     .lightbox-content {
         text-align: center;
@@ -48,9 +48,9 @@
 </style>
 
 <!-- Lightbox HTML -->
-<div id="lightbox" style="display: none;">
+<div id="customLoader">
     <div class="lightbox-content">
-        <div class="loader"></div> <!-- Loader Icon -->
+        <div class="spinner"></div>
         <p>Processing...</p>
     </div>
 </div>
@@ -72,21 +72,6 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-<style>
-    #loading {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1000;
-        /* Ensure it appears on top */
-    }
-</style>
-
-<!-- In your base template or the specific template -->
-<div id="loading" style="display:none;">
-    <img src="{% static 'adminlte/img/loading.gif' %}" alt="Loading..." />
-</div>
 
 
 <!-- Main content -->
@@ -102,16 +87,20 @@
                         <table id="example2" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>SN</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    <th>Designation</th>
+                                    <th>Branch</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <!-- Table body is populated dynamically by DataTable via AJAX -->
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -125,31 +114,44 @@
 
 <script>
     $(document).ready(function () {
+        // Show the Loading spinner before fetching data
+  
+
+        // Initialize the DataTable
         $("#example2").DataTable({
-            processing: true,
+            processing: false,
             serverSide: true,
             ajax: {
-                url: '{% url "accountdetails" %}',
-                type: 'GET',
+                url: '{% url "account_details" %}',
                 beforeSend: function () {
                     // Show lightbox before sending the request
-                    $("#lightbox").fadeIn();
+                    $("#customLoader").fadeIn();
                 },
                 complete: function () {
                     // Hide lightbox after request completes
-                    $("#lightbox").fadeOut();
+                    $("#customLoader").fadeOut();
                 },
-                error: function (xhr, error, thrown) {
-                    console.error("Error fetching data: ", error);
-                    $("#lightbox").fadeOut(); // Hide lightbox on error
-                }
             },
             columns: [
+                {
+                    data: null, // Set to null to handle the rendering ourselves
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1; // Serial number
+                    }
+                },
                 { data: 0 },  // Adjust these indices based on the order of your SELECT statement
                 { data: 1 },
                 { data: 2 },
                 { data: 3 },
+                { data: 4 },
+                { data: 5 },
             ]
+        });
+
+        // Use the xhr event to hide the loader once the data is fetched
+        $('#example2').on('xhr.dt', function (e, settings, json, xhr) {
+            // Hide the loading spinner once the data is fully loaded
+            $('#customLoader').hide();
         });
     });
 

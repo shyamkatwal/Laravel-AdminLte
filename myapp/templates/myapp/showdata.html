@@ -52,18 +52,22 @@
                                     <th>SN</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    <th>Extension</th>
                                     <th>Mobile</th>
                                     <th>Email</th>
+                                    <th>Department</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for record in records %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ record.1}}</td>
+                                    <td>{{ record.0}}</td>
+                                    <td>{{ record.1 }}</td>
                                     <td>{{ record.2 }}</td>
-                                    <td>{{ record.6 }}</td>
-                                    <td>{{ record.7 }}</td>
+                                    <td>{{ record.3 }}</td>
+                                    <td>{{ record.4 }}</td>
+                                    <td>{{ record.5 }}</td>
                                   
                                 </tr>
                                 {% endfor %}
